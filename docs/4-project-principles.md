@@ -11,6 +11,8 @@
 
 | 버전 | 날짜 | 작성자 | 변경 내용 |
 |------|------|--------|----------|
+| 1.3 | 2026-05-14 | jung young woo | 디렉토리 구조 실제 구현 반영 (validate.js·routes/index.js 제거, pgErrorHandler.js 추가), CORS 체크리스트 수정 |
+| 1.2 | 2026-05-13 | jung young woo | 백엔드 언어 변경: TypeScript → JavaScript |
 | 1.1 | 2026-05-13 | Software Architect | 인증 방식 변경: Refresh Token HttpOnly Cookie → Zustand 메모리 반영 (JWT 원칙, CORS, 인터셉터 코드) |
 | 1.0 | 2026-05-13 | Software Architect | 최초 작성 |
 
@@ -27,15 +29,15 @@
 
 각 파일·함수는 하나의 책임만 가진다. 데이터 접근 로직이 Controller에 있거나, 비즈니스 로직이 Repository에 있으면 안 된다.
 
-```typescript
+```javascript
 // ✅ 준수 — Controller는 요청/응답만, 로직은 Service에 위임
-async function createTodo(req: Request, res: Response) {
+async function createTodo(req, res) {
   const todo = await todoService.create(req.user.userId, req.body);
   res.status(201).json({ data: todo });
 }
 
 // ❌ 위반 — Controller에서 직접 DB 쿼리
-async function createTodo(req: Request, res: Response) {
+async function createTodo(req, res) {
   const result = await pool.query(
     'INSERT INTO todos (user_id, title) VALUES ($1, $2) RETURNING *',
     [req.user.userId, req.body.title]
@@ -48,26 +50,28 @@ async function createTodo(req: Request, res: Response) {
 
 **왜:** 하나의 파일·함수가 여러 책임을 가지면 변경 시 예상치 못한 사이드 이펙트가 발생한다.
 
-파일 하나는 하나의 도메인 개념을 다룬다. `todo.service.ts`는 Todo 비즈니스 로직만, `auth.middleware.ts`는 인증 검증만 담당한다.
+파일 하나는 하나의 도메인 개념을 다룬다. `todo.service.js`는 Todo 비즈니스 로직만, `auth.middleware.js`는 인증 검증만 담당한다.
 
-### P-03. 명시적 타입 사용 (Explicit Typing)
+### P-03. 명시적 입력 검증 (Explicit Input Validation)
 
-**왜:** TypeScript의 타입 안전성을 활용해야 런타임 오류를 사전에 방지할 수 있다.
+**왜:** JavaScript로 작성하더라도 외부 입력에 대한 검증을 강제해야 잘못된 데이터가 데이터베이스에 저장되는 것을 방지할 수 있다.
 
-`any` 타입 사용을 금지한다. 외부 입력(req.body, API 응답)에는 반드시 타입 가드 또는 명시적 타입 캐스팅을 적용한다.
+외부 입력(req.body, req.params)에는 반드시 유효성 검증 미들웨어를 통해 검증한다. JSDoc으로 함수 시그니처를 문서화한다.
 
-```typescript
-// ✅ 준수
-interface CreateTodoBody {
-  title: string;
-  category_id: number;
-  description?: string;
-  due_date?: string;
+```javascript
+// ✅ 준수 — 유효성 검증 미들웨어 통해 입력 검증
+function createTodo(req, res) {
+  const { title, category_id, description, due_date } = req.body;
+  // validate 미들웨어에서 이미 검증 완료
+  todoService.create(req.user.userId, req.body).then(todo =>
+    res.status(201).json({ data: todo })
+  );
 }
-const body = req.body as CreateTodoBody;
 
-// ❌ 위반
-const body: any = req.body;
+// ❌ 위반 — 검증 없이 req.body를 직접 사용
+function createTodo(req, res) {
+  pool.query('INSERT INTO todos ...', [req.body.title]);
+}
 ```
 
 ### P-04. 일관된 에러 처리 (Consistent Error Handling)
@@ -118,12 +122,12 @@ HTTP 요청
 - Service는 Controller를 import하지 않는다.
 - 공유 타입(`types/`)은 모든 레이어에서 import 가능하다.
 
-```typescript
+```javascript
 // ✅ 준수 — Service가 Repository를 호출하고 비즈니스 규칙 적용
-// todo.service.ts
-import { todoRepository } from '../repositories/todo.repository';
+// todo.service.js
+const { todoRepository } = require('../repositories/todo.repository');
 
-export async function getTodoById(todoId: number, userId: number) {
+async function getTodoById(todoId, userId) {
   const todo = await todoRepository.findById(todoId);
   if (!todo) throw new AppError('RESOURCE_NOT_FOUND', 404);
   if (todo.user_id !== userId) throw new AppError('FORBIDDEN', 403); // BR-03
@@ -131,8 +135,8 @@ export async function getTodoById(todoId: number, userId: number) {
 }
 
 // ❌ 위반 — Repository에 비즈니스 규칙 포함
-// todo.repository.ts
-export async function findAndValidate(todoId: number, userId: number) {
+// todo.repository.js
+async function findAndValidate(todoId, userId) {
   const todo = await pool.query(...);
   if (todo.user_id !== userId) throw new Error('forbidden'); // 비즈니스 로직이 Repository에
 }
@@ -142,23 +146,22 @@ export async function findAndValidate(todoId: number, userId: number) {
 
 **왜:** ORM 없이 직접 SQL을 쓰더라도 Repository로 격리하면 SQL 변경이 Service에 영향을 주지 않고, 단위 테스트 시 Repository를 mock할 수 있다.
 
-```typescript
-// ✅ 준수 예시 — todo.repository.ts
-import { pool } from '../config/database';
-import { Todo, CreateTodoInput } from '../types/todo.types';
+```javascript
+// ✅ 준수 예시 — todo.repository.js
+const { pool } = require('../config/database');
 
-export const todoRepository = {
-  async findById(todoId: number): Promise<Todo | null> {
-    const result = await pool.query<Todo>(
+const todoRepository = {
+  async findById(todoId) {
+    const result = await pool.query(
       'SELECT * FROM todos WHERE todo_id = $1',
       [todoId]
     );
     return result.rows[0] ?? null;
   },
 
-  async create(input: CreateTodoInput): Promise<Todo> {
+  async create(input) {
     const { user_id, category_id, title, description, due_date } = input;
-    const result = await pool.query<Todo>(
+    const result = await pool.query(
       `INSERT INTO todos (user_id, category_id, title, description, due_date)
        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
       [user_id, category_id, title, description, due_date]
@@ -221,7 +224,7 @@ function TodoList() {
 
 | 영역 | 규칙 | 예시 |
 |------|------|------|
-| 백엔드 전체 | kebab-case | `todo.service.ts`, `auth.middleware.ts`, `todo.repository.ts` |
+| 백엔드 전체 | kebab-case | `todo.service.js`, `auth.middleware.js`, `todo.repository.js` |
 | 프론트엔드 컴포넌트 | PascalCase | `TodoList.tsx`, `CategoryBadge.tsx`, `Button.tsx` |
 | 프론트엔드 훅 | camelCase, `use` 접두사 | `useTodoList.ts`, `useAuth.ts` |
 | 프론트엔드 스토어 | camelCase, `Store` 접미사 | `authStore.ts`, `uiStore.ts` |
@@ -263,43 +266,35 @@ function TodoList() {
 { "error": { "code": "RESOURCE_NOT_FOUND", "message": "요청한 리소스를 찾을 수 없습니다." } }
 ```
 
-```typescript
+```javascript
 // ✅ 준수 — 표준 응답 헬퍼 함수
-export function sendSuccess<T>(res: Response, data: T, statusCode = 200) {
+function sendSuccess(res, data, statusCode = 200) {
   res.status(statusCode).json({ data });
 }
 ```
 
-### 3-4. TypeScript 사용 원칙
+### 3-4. 백엔드 코드 품질 원칙 (JavaScript)
 
-**왜:** 타입 안전성을 최대한 활용해야 컴파일 타임에 버그를 잡을 수 있다.
+**왜:** JavaScript로 작성하더라도 명확한 네이밍, JSDoc 문서화, 입력 유효성 검증으로 유지보수성을 확보한다.
 
-- `any` 타입 사용 금지 (`unknown` 사용 후 타입 가드 적용)
-- 공유 타입은 `types/` 디렉토리에 정의하고 각 레이어에서 import
-- `interface`는 객체 형태 정의에, `type`은 유니온·인터섹션에 사용
-- 함수 반환 타입을 명시적으로 선언 (추론에만 의존하지 않음)
-- `strict: true` 설정 필수 (tsconfig.json)
+- 외부 입력(req.body, req.params)은 반드시 Controller 진입부에서 필수값 존재 여부를 검증 후 사용한다 (AppError VALIDATION_ERROR 400)
+- 함수는 JSDoc으로 파라미터와 반환값을 문서화한다
+- `AppError` 클래스로 에러를 표준화한다 (`utils/error.js`)
+- 에러 코드 상수는 `constants/errorCodes.js`에 정의한다
 
-```typescript
-// ✅ 준수
-interface Todo {
-  todo_id: number;
-  user_id: number;
-  category_id: number;
-  title: string;
-  description: string | null;
-  due_date: string | null;
-  is_completed: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-async function findTodoById(todoId: number): Promise<Todo | null> { ... }
-
-// ❌ 위반
-async function findTodoById(todoId: number) {
-  const result: any = await pool.query(...);
-  return result.rows[0];
+```javascript
+// ✅ 준수 — JSDoc으로 함수 시그니처 문서화
+/**
+ * @param {number} todoId
+ * @param {number} userId
+ * @returns {Promise<object|null>}
+ */
+async function findTodoById(todoId, userId) {
+  const result = await pool.query(
+    'SELECT * FROM todos WHERE todo_id = $1',
+    [todoId]
+  );
+  return result.rows[0] ?? null;
 }
 ```
 
@@ -323,15 +318,15 @@ async function findTodoById(todoId: number) {
 
 **왜:** Service 비즈니스 규칙을 단위 테스트하면 BR 위반을 빠르게 감지하고, API 통합 테스트는 인증/권한 로직의 회귀를 방지한다.
 
-```typescript
+```javascript
 // ✅ 준수 — Service 비즈니스 규칙 단위 테스트
 describe('todoService.deleteTodo', () => {
   it('본인 소유가 아닌 할일 삭제 시 FORBIDDEN 에러를 던진다', async () => {
     jest.spyOn(todoRepository, 'findById').mockResolvedValue({
       todo_id: 1, user_id: 99, title: 'test', is_completed: false,
-    } as Todo);
+    });
 
-    await expect(todoService.deleteTodo(1, userId: 1)).rejects.toMatchObject({
+    await expect(todoService.deleteTodo(1, 1)).rejects.toMatchObject({
       code: 'FORBIDDEN',
     });
   });
@@ -365,10 +360,13 @@ describe('useAuth', () => {
 **왜:** 자동화된 포맷·린팅 도구 없이는 코드 스타일 불일치로 diff 노이즈가 커진다.
 
 **ESLint 주요 규칙:**
-- `@typescript-eslint/no-explicit-any`: error
-- `@typescript-eslint/explicit-function-return-type`: warn
 - `no-console`: warn (프로덕션 빌드에서 error로 격상)
 - `import/order`: 내장 → 외부 라이브러리 → 내부 모듈 순서 강제
+
+**백엔드 ESLint 설정 (JavaScript):**
+```json
+{ "env": { "node": true, "es2022": true }, "parserOptions": { "ecmaVersion": 2022, "sourceType": "module" } }
+```
 
 **Prettier 설정:**
 ```json
@@ -468,11 +466,11 @@ const result = await pool.query(
 
 **왜:** 동시 접속 300명 규모에서 커넥션 풀을 적절히 설정해야 DB 커넥션 고갈 없이 안정적인 응답을 보장한다.
 
-```typescript
-// ✅ 준수 — config/database.ts
-import { Pool } from 'pg';
+```javascript
+// ✅ 준수 — config/database.js
+const { Pool } = require('pg');
 
-export const pool = new Pool({
+const pool = new Pool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   database: process.env.DB_NAME,
@@ -482,6 +480,8 @@ export const pool = new Pool({
   idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT_MS) || 30000, // 유휴 커넥션 30초 후 반환
   connectionTimeoutMillis: 2000,                          // 커넥션 획득 대기 최대 2초
 });
+
+module.exports = { pool };
 ```
 
 | 설정 | 값 | 근거 |
@@ -494,7 +494,7 @@ export const pool = new Pool({
 
 **왜:** 와일드카드(`*`) CORS는 보안 위협이 된다. 허용 오리진을 명시적으로 설정한다.
 
-```typescript
+```javascript
 // ✅ 준수
 app.use(cors({
   origin: process.env.CORS_ORIGIN,   // 명시적 오리진 (예: http://localhost:5173)
@@ -602,74 +602,55 @@ frontend/
 backend/
 └── src/
     ├── config/                         # 설정 및 초기화
-    │   ├── database.ts                 # pg Pool 인스턴스 생성 및 export
-    │   └── env.ts                      # 환경변수 로드 및 필수값 유효성 검증
+    │   ├── database.js                 # pg Pool 인스턴스 생성 및 export
+    │   └── env.js                      # 환경변수 로드 및 필수값 유효성 검증
     │
     ├── middleware/                     # Express 미들웨어
-    │   ├── authenticate.ts             # JWT Access Token 검증, req.user 주입
-    │   ├── errorHandler.ts             # 중앙 에러 핸들러 (AppError → 표준 응답)
-    │   └── validate.ts                 # 요청 바디 유효성 검사 미들웨어 팩토리
+    │   ├── authenticate.js             # JWT Access Token 검증, req.user 주입
+    │   └── errorHandler.js             # 중앙 에러 핸들러 (AppError → 표준 응답), asyncHandler 래퍼
     │
     ├── routes/                         # Express 라우터 (URL 매핑만)
-    │   ├── index.ts                    # 모든 라우터를 /api 에 마운트
-    │   ├── auth.routes.ts              # /api/auth/* 라우트 정의
-    │   ├── user.routes.ts              # /api/users/* 라우트 정의
-    │   ├── todo.routes.ts              # /api/todos/* 라우트 정의
-    │   └── category.routes.ts          # /api/categories/* 라우트 정의
+    │   ├── auth.routes.js              # /api/auth/* 라우트 정의
+    │   ├── user.routes.js              # /api/users/* 라우트 정의
+    │   ├── todo.routes.js              # /api/todos/* 라우트 정의
+    │   └── category.routes.js          # /api/categories/* 라우트 정의
     │
     ├── controllers/                    # 요청/응답 처리 (req 파싱 → service 호출 → res 반환)
-    │   ├── auth.controller.ts          # signup, login, logout, refresh 핸들러
-    │   ├── user.controller.ts          # getMe, updateMe, deleteMe 핸들러
-    │   ├── todo.controller.ts          # getTodos, getTodoById, createTodo, updateTodo, deleteTodo, toggleComplete 핸들러
-    │   └── category.controller.ts      # getCategories, createCategory, deleteCategory 핸들러
+    │   ├── auth.controller.js          # signup, login, logout, refresh 핸들러
+    │   ├── user.controller.js          # getMe, updateMe, deleteMe 핸들러
+    │   ├── todo.controller.js          # getTodos, getTodoById, createTodo, updateTodo, deleteTodo, toggleComplete 핸들러
+    │   └── category.controller.js      # getCategories, createCategory, deleteCategory 핸들러
     │
     ├── services/                       # 비즈니스 로직 및 도메인 규칙 검증
-    │   ├── auth.service.ts             # 회원가입(해싱), 로그인(검증), 토큰 발급·검증
-    │   ├── user.service.ts             # 프로필 조회·수정, 탈퇴(cascade 처리)
-    │   ├── todo.service.ts             # Todo CRUD + 소유권 검증 (BR-02, BR-03)
-    │   └── category.service.ts         # 카테고리 생성·삭제, BR-05·BR-08 규칙 검증
+    │   ├── auth.service.js             # 회원가입(해싱), 로그인(검증), 토큰 발급·검증
+    │   ├── user.service.js             # 프로필 조회·수정, 탈퇴(cascade 처리)
+    │   ├── todo.service.js             # Todo CRUD + 소유권 검증 (BR-02, BR-03)
+    │   └── category.service.js         # 카테고리 생성·삭제, BR-05·BR-08 규칙 검증
     │
     ├── repositories/                   # pg Pool을 통한 직접 SQL 실행 (데이터 접근만)
-    │   ├── user.repository.ts          # findByEmail, findById, create, update, remove
-    │   ├── todo.repository.ts          # findAll(필터), findById, create, update, remove, toggleComplete
-    │   └── category.repository.ts      # findAllByUser, findById, create, remove, hasTodos
+    │   ├── user.repository.js          # findByEmail, findById, create, update, remove
+    │   ├── todo.repository.js          # findAll(필터), findById, create, update, remove, toggleComplete
+    │   └── category.repository.js      # findAllByUser, findById, create, remove, hasTodos
     │
-    ├── types/                          # TypeScript 공유 타입 정의
-    │   ├── express.d.ts                # req.user 타입 확장 (Express Request augmentation)
-    │   ├── todo.types.ts               # Todo, CreateTodoInput, UpdateTodoInput, TodoFilter
-    │   ├── user.types.ts               # User, CreateUserInput, UpdateUserInput
-    │   ├── category.types.ts           # Category, CreateCategoryInput
-    │   └── error.types.ts              # AppError 클래스, ErrorCode 열거형
+    ├── constants/                      # 공통 상수
+    │   └── errorCodes.js               # AppError 에러 코드 상수 9개
     │
     ├── utils/                          # 순수 유틸리티 함수
-    │   ├── jwt.ts                      # generateAccessToken, generateRefreshToken, verifyToken
-    │   ├── password.ts                 # hashPassword, comparePassword (bcrypt 래퍼)
-    │   └── response.ts                 # sendSuccess, sendError 응답 헬퍼
+    │   ├── error.js                    # AppError 클래스 정의
+    │   ├── jwt.js                      # generateAccessToken, generateRefreshToken, verifyToken
+    │   ├── password.js                 # hashPassword, comparePassword (bcrypt 래퍼)
+    │   ├── response.js                 # sendSuccess 응답 헬퍼
+    │   └── pgErrorHandler.js           # pg 에러코드 → AppError 변환 유틸 (23505, 23503)
     │
-    ├── app.ts                          # Express 앱 설정 (미들웨어, 라우터, 에러핸들러 마운트)
-    └── server.ts                       # HTTP 서버 시작, pg Pool 연결 확인
+    ├── app.js                          # Express 앱 설정 (미들웨어, 라우터 직접 마운트, 에러핸들러, Swagger UI /api-docs)
+    └── server.js                       # HTTP 서버 시작, pg Pool 연결 확인
 ```
 
 **핵심 규칙:**
-- `routes/`는 Controller 함수를 import하고 미들웨어 체인을 구성하는 것 외의 로직을 갖지 않는다.
+- `routes/`는 Controller 함수를 import하고 미들웨어 체인을 구성하는 것 외의 로직을 갖지 않는다. 라우터 마운트(`app.use('/api/...')`)는 `app.js`에서 직접 처리한다.
 - `controllers/`는 `req.body`, `req.params`, `req.user`를 읽고 `res.json()`으로 응답한다. `asyncHandler` 래퍼로 try-catch를 제거하고 `next(error)`를 자동 위임한다.
 - `services/`는 `pg`를 import하지 않는다. 모든 DB 접근은 Repository를 통해서만 한다.
 - `repositories/`는 비즈니스 규칙을 포함하지 않는다. 데이터를 읽고 쓰는 것만 담당한다.
-- `types/express.d.ts`에서 `Request` 인터페이스를 확장해 `req.user`의 타입을 보장한다.
-
-```typescript
-// ✅ 준수 — types/express.d.ts
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        userId: number;
-        email: string;
-      };
-    }
-  }
-}
-```
 
 ---
 
@@ -682,8 +663,8 @@ MVP 개발 시 매 파일 작성 전 아래 항목을 확인한다.
 | 1 | 이 파일의 레이어 역할이 명확한가? | 책임 혼재로 테스트 불가 |
 | 2 | 상위 레이어에 의존하지 않는가? | 순환 참조 빌드 오류 |
 | 3 | SQL에 파라미터 바인딩($1, $2)을 사용하는가? | SQL 인젝션 취약 |
-| 4 | `any` 타입을 사용하지 않는가? | 런타임 타입 오류 |
+| 4 | 외부 입력(req.body)에 유효성 검증을 적용했는가? | 잘못된 데이터 DB 저장 |
 | 5 | API 응답이 표준 구조(`{ data }` / `{ error }`)를 따르는가? | 프론트엔드 파싱 오류 |
 | 6 | 시크릿·비밀번호를 환경변수로 관리하는가? | 보안 사고 위험 |
 | 7 | 비즈니스 규칙(BR-*)은 Service에만 있는가? | BR 검증 누락 가능 |
-| 8 | CORS에 `credentials: true`와 명시적 오리진을 설정했는가? | 토큰 쿠키 전송 실패 |
+| 8 | CORS에 명시적 오리진을 설정했는가? (`credentials`는 Bearer 토큰 방식이므로 불필요) | 와일드카드 CORS 허용으로 보안 취약 |

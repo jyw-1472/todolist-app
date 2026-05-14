@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "db:migrate":      "node database/migrate.js",
+    "db:migrate:test": "node database/migrate.js test",
+    "db:verify":       "node database/seed-verify.js",
+    "db:seed:admin":   "node database/seed-admin.js"
+  },
   "dependencies": {
     "express": "^5.2.1",
     "nodemon": "^3.1.14",

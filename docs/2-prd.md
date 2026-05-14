@@ -11,6 +11,7 @@
 
 | 버전 | 날짜 | 작성자 | 변경 내용 |
 |------|------|--------|----------|
+| 1.3 | 2026-05-14 | jung young woo | JWT 설계 원칙에 토큰 로테이션 동작 추가 |
 | 1.2 | 2026-05-13 | Product Manager | 인증 방식 변경: Refresh Token 저장소를 HttpOnly Cookie → Zustand 메모리로 변경 |
 | 1.1 | 2026-05-13 | Product Manager | 검토 반영: BR-05 수정 불가 명시, 로그아웃·토큰갱신·회원탈퇴 UC 추가, 단건 조회 API 추가, 필터 파라미터 정의, updated_at 갱신 방식 명시, 에러 코드 목록 추가, provider 컬럼 도메인 이탈 사유 명시 |
 | 1.0 | 2026-05-13 | Product Manager | 최초 작성 |
@@ -93,6 +94,7 @@
 > **JWT 설계 원칙**
 > - Access Token: 만료 시간 짧게 (예: 15분), Zustand 메모리 저장
 > - Refresh Token: 만료 시간 길게 (예: 7일), Zustand 메모리 저장 (페이지 새로고침 시 소멸 → 재로그인 필요, 의도된 동작)
+> - 토큰 로테이션: `POST /api/auth/refresh` 호출 시 기존 Refresh Token을 서버 인메모리 블랙리스트에 추가하고 새 토큰 쌍(Access + Refresh)을 발급한다. 무효화된 Refresh Token으로 재갱신 시도 시 401을 반환한다.
 > - 소셜 로그인 확장을 고려해 사용자 테이블에 `provider` 컬럼 예약
 
 ---

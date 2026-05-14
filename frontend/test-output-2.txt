@@ -1,0 +1,332 @@
+﻿
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/_vibe/todolist-app/frontend[39m
+
+node.exe : [90mstderr[2m | src/test/axiosInstance.test.ts[2m > [22m[2m?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m[2m401 ?묐떟 
+??POST /api/auth/refresh瑜??몄텧?섍퀬 ???좏겙????ν븳??[22m[39mError: Not implemented: navigation (except hash changes)
+위치 줄:1 문자:1
++ & "C:\nvm4w\nodejs/node.exe" "C:\nvm4w\nodejs/node_modules/npm/bin/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([90mstderr[2m...t hash changes):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/axiosInstance.test.ts[2m > [22m[2m?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m[2mrefresh ?깃났 ???먮옒 ?
+붿껌???ъ떆?꾪븯???깃났 ?묐떟??諛섑솚?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/axiosInstance.test.ts[2m > [22m[2m?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m[2mrefresh ?ㅽ뙣 ??clear
+Auth瑜??몄텧?섏뿬 ?좏겙??珥덇린?뷀븳??[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+ [31m??[39m src/test/axiosInstance.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 55[2mms[22m[39m
+   [32m??[39m axiosInstance 湲곕낯 ?ㅼ젙[2m > [22m?붿껌 ?명꽣?됲꽣媛 ?깅줉?섏뼱 ?덈떎[32m 2[2mms[22m[39m
+   [32m??[39m axiosInstance 湲곕낯 ?ㅼ젙[2m > [22m?묐떟 ?명꽣?됲꽣媛 ?깅줉?섏뼱 ?덈떎[32m 0[2mms[22m[39m
+   [32m??[39m ?붿껌 ?명꽣?됲꽣 ??Authorization ?ㅻ뜑 二쇱엯[2m > [22maccessToken???놁쑝硫?Authorization ?ㅻ뜑瑜?二쇱엯?섏? ?딅뒗??[32m 4[2mms[22m[39m
+   [32m??[39m ?붿껌 ?명꽣?됲꽣 ??Authorization ?ㅻ뜑 二쇱엯[2m > [22maccessToken???덉쑝硫?Authorization: Bearer ?ㅻ뜑瑜?二쇱엯?쒕떎[32m 1[2mms[22m[39m
+   [32m??[39m ?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m401???꾨땶 ?먮윭??洹몃?濡?reject?쒕떎[32m 18[2mms[22m[39m
+[31m   [31m횞[31m ?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m401 ?묐떟 ??POST /api/auth/refresh瑜??몄텧?섍퀬 ???좏겙????ν븳??[39m[32m 15[2mms[22m[39m
+[31m     ??Request failed with status code 401[39m
+[31m   [31m횞[31m ?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22mrefresh ?깃났 ???먮옒 ?붿껌???ъ떆?꾪븯???깃났 ?묐떟??諛섑솚?쒕떎[39m[32m 8[2mms[22m[39m
+[31m     ??Request failed with status code 401[39m
+   [32m??[39m ?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22mrefresh ?ㅽ뙣 ??clearAuth瑜??몄텧?섏뿬 ?좏겙??珥덇린?뷀븳??[32m 3[2mms[22m[39m
+   [32m??[39m ?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22mrefresh ?ㅽ뙣 ??/login?쇰줈 ?대룞?쒕떎[32m 2[2mms[22m[39m
+ [32m??[39m src/test/setup.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 217[2mms[22m[39m
+[90mstderr[2m | src/test/auth.api.test.ts[2m > [22m[2mlogin[2m > [22m[2m401 ?먮윭 ??reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/auth.api.test.ts[2m > [22m[2mrefreshAccessToken[2m > [22m[2m401 ?먮윭 ??reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/auth.api.test.ts[2m > [22m[2mgetMe[2m > [22m[2m401 ?먮윭 ??reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/auth.api.test.ts[2m > [22m[2mupdateMe[2m > [22m[2m?꾩옱 鍮꾨?踰덊샇 遺덉씪移???reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/auth.api.test.ts[2m > [22m[2mdeleteMe[2m > [22m[2m鍮꾨?踰덊샇 遺덉씪移???reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+ [32m??[39m src/test/auth.api.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 151[2mms[22m[39m
+ [32m??[39m src/test/components.test.tsx [2m([22m[2m26 tests[22m[2m)[22m[32m 286[2mms[22m[39m
+ [32m??[39m src/test/auth.pages.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[33m 336[2mms[22m[39m
+[90mstderr[2m | src/test/auth.feature.test.tsx[2m > [22m[2mLoginForm[2m > [22m[2m?쒖텧 以?踰꾪듉??isLoading ?곹깭媛 ?쒕떎
+[22m[39mAn update to LoginForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
+rap-tests-with-act
+An update to LoginForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
+rap-tests-with-act
+
+ [32m??[39m src/test/category.hooks.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 719[2mms[22m[39m
+ [32m??[39m src/test/todo.hooks.test.tsx [2m([22m[2m19 tests[22m[2m)[22m[33m 796[2mms[22m[39m
+ [32m??[39m src/test/auth.feature.test.tsx [2m([22m[2m19 tests[22m[2m)[22m[33m 755[2mms[22m[39m
+[90mstderr[2m | src/test/profile.feature.test.tsx[2m > [22m[2mProfilePage ??鍮꾨?踰덊샇 蹂寃?[2m > [22m[2m?꾩옱 鍮꾨?踰덊샇 遺
+덉씪移?401) ???ㅻ쪟 硫붿떆吏媛 ?쒖떆?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+ [32m??[39m src/test/category.feature.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 1072[2mms[22m[39m
+[90mstderr[2m | src/test/profile.feature.test.tsx[2m > [22m[2mProfilePage ???뚯썝 ?덊눜[2m > [22m[2m?덊눜 ??鍮꾨?踰덊샇 遺덉
+씪移?401) ?ㅻ쪟 硫붿떆吏媛 ?쒖떆?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+ [32m??[39m src/test/profile.feature.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 1520[2mms[22m[39m
+   [33m[2m??[22m[39m ProfilePage ???대쫫 蹂寃?[2m > [22m?섏씠吏 吏꾩엯 ???꾩옱 ?ъ슜???대쫫???대쫫 ?꾨뱶??誘몃━ 梨꾩썙吏꾨떎 [33m 309[2mms[22m[39m
+[90mstderr[2m | src/test/category.test.ts[2m > [22m[2mgetCategories[2m > [22m[2m401 ?먮윭 ??reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+[90mstderr[2m | src/test/todo.api.test.ts[2m > [22m[2mgetTodos[2m > [22m[2m401 ?먮윭 ??reject?쒕떎
+[22m[39mError: Not implemented: navigation (except hash changes)
+    at module.exports (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at navigateFetch (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:77:3)
+    at exports.navigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\navigation.js:55:3)
+    at LocationImpl._locationObjectNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\
+Location-impl.js:30:5)
+    at LocationImpl._locationObjectSetterNavigate (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\w
+indow\Location-impl.js:24:17)
+    at LocationImpl.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\window\Locat
+ion-impl.js:46:10)
+    at Location.set href [as href] (C:\_vibe\todolist-app\frontend\node_modules\jsdom\lib\jsdom\living\generated\Locati
+on.js:125:37)
+    at C:\_vibe\todolist-app\frontend\src\api\axiosInstance.ts:49:25
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at Axios.request (file:///C:/_vibe/todolist-app/frontend/node_modules/axios/lib/core/Axios.js:41:14) [90mundefined
+[39m
+
+ [32m??[39m src/test/category.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 96[2mms[22m[39m
+ [32m??[39m src/test/todo.api.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+ [32m??[39m src/test/utils.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m??[39m src/test/router.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 81[2mms[22m[39m
+ [32m??[39m src/test/store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m??[39m src/test/todo.feature.test.tsx [2m([22m[2m34 tests[22m[2m)[22m[33m 1529[2mms[22m[39m
+ [32m??[39m src/test/types.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m??[39m src/test/App.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[31m??렞??렞??렞??[39m[1m[41m Failed Tests 2 [49m[22m[31m??렞??렞??렞??[39m
+
+[41m[1m FAIL [22m[49m src/test/axiosInstance.test.ts[2m > [22m?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22m401 ?묐떟 ??POST /api
+/auth/refresh瑜??몄텧?섍퀬 ???좏겙????ν븳??[31m[1mError[22m: Request failed with status code 401[39m
+[90m [2m??[22m AxiosError.from node_modules/axios/lib/core/AxiosError.js:[2m77:24[22m[39m
+[90m [2m??[22m createAxiosError node_modules/axios-mock-adapter/src/utils.js:[2m161:29[22m[39m
+[90m [2m??[22m Object.settle node_modules/axios-mock-adapter/src/utils.js:[2m150:11[22m[39m
+[90m [2m??[22m Axios.request node_modules/axios/lib/core/Axios.js:[2m46:41[22m[39m
+[36m [2m??[22m src/test/axiosInstance.test.ts:[2m66:5[22m[39m
+    [90m 64| [39m    })
+    [90m 65| [39m
+    [90m 66| [39m    [35mawait[39m axiosInstance[33m.[39m[35mget[39m([32m'/api/todos'[39m)
+    [90m   | [39m    [31m^[39m
+    [90m 67| [39m
+    [90m 68| [39m    expect(useAuthStore.getState().accessToken).toBe('new-access-token??
+[31m[1mCaused by: Error[22m: Request failed with status code 401[39m
+[90m [2m??[22m createAxiosError node_modules/axios-mock-adapter/src/utils.js:[2m161:34[22m[39m
+[90m [2m??[22m Object.settle node_modules/axios-mock-adapter/src/utils.js:[2m150:11[22m[39m
+
+[31m[2m??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞[1/2]??[22m[39m
+
+[41m[1m FAIL [22m[49m src/test/axiosInstance.test.ts[2m > [22m?묐떟 ?명꽣?됲꽣 ??401 泥섎━[2m > [22mrefresh ?깃났 ???먮옒 ?
+붿껌???ъ떆?꾪븯???깃났 ?묐떟??諛섑솚?쒕떎
+[31m[1mError[22m: Request failed with status code 401[39m
+[90m [2m??[22m AxiosError.from node_modules/axios/lib/core/AxiosError.js:[2m77:24[22m[39m
+[90m [2m??[22m createAxiosError node_modules/axios-mock-adapter/src/utils.js:[2m161:29[22m[39m
+[90m [2m??[22m Object.settle node_modules/axios-mock-adapter/src/utils.js:[2m150:11[22m[39m
+[90m [2m??[22m Axios.request node_modules/axios/lib/core/Axios.js:[2m46:41[22m[39m
+[36m [2m??[22m src/test/axiosInstance.test.ts:[2m81:22[22m[39m
+    [90m 79| [39m    })
+    [90m 80| [39m
+    [90m 81| [39m    [35mconst[39m response [33m=[39m [35mawait[39m axiosInstance[33m.[39m[35mget[39m([32m
+'/api/todos'[39m)
+    [90m   | [39m                     [31m^[39m
+    [90m 82| [39m
+    [90m 83| [39m    [34mexpect[39m(response[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m200[39m)
+
+[31m[1mCaused by: Error[22m: Request failed with status code 401[39m
+[90m [2m??[22m createAxiosError node_modules/axios-mock-adapter/src/utils.js:[2m161:34[22m[39m
+[90m [2m??[22m Object.settle node_modules/axios-mock-adapter/src/utils.js:[2m150:11[22m[39m
+
+[31m[2m??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞[2/2]??[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m17 passed[39m[22m[90m (18)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m256 passed[39m[22m[90m (258)[39m
+[2m   Start at [22m 16:04:06
+[2m   Duration [22m 3.96s[2m (transform 1.49s, setup 1.92s, collect 5.41s, tests 7.76s, environment 14.97s, prepare 2.65s)[22m
+

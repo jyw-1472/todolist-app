@@ -55,6 +55,7 @@ CREATE TABLE todos (
   category_id INTEGER       NOT NULL REFERENCES categories(category_id) ON DELETE RESTRICT,
   title       VARCHAR(255)  NOT NULL,
   description TEXT,
+  start_date  DATE,
   due_date    DATE,
   is_completed BOOLEAN      NOT NULL DEFAULT FALSE,
   created_at  TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
@@ -74,7 +75,7 @@ CREATE TRIGGER trg_todos_updated_at
 -- ============================================================
 INSERT INTO categories (user_id, name, is_default) VALUES
   (NULL, '전체',   TRUE),
-  (NULL, '업무',   FALSE),
-  (NULL, '개인',   FALSE),
-  (NULL, '쇼핑',   FALSE),
-  (NULL, '기타',   FALSE);
+  (NULL, '업무',   TRUE),
+  (NULL, '개인',   TRUE),
+  (NULL, '쇼핑',   TRUE),
+  (NULL, '기타',   TRUE);

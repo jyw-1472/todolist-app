@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 모바일에서 화면이 올바르게 보이도록 뷰포트 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>두더지 잡기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔨 두더지 잡기</h1>
+
+    <!-- 상태 표시줄: 남은 시간 + 점수 -->
+    <div class="status-bar">
+      <div class="status-box">
+        <span class="status-label">⏱ 남은 시간</span>
+        <!-- JavaScript가 이 id를 찾아 숫자를 1초마다 줄임 -->
+        <span class="status-value" id="time-left">30</span>
+      </div>
+      <div class="status-box">
+        <span class="status-label">🎯 점수</span>
+        <!-- JavaScript가 두더지 클릭 시 이 숫자를 올림 -->
+        <span class="status-value" id="score">0</span>
+      </div>
+    </div>
+
+    <!-- 3x3 두더지 구멍 판 -->
+    <!-- JavaScript가 여기에 9개의 구멍(hole)을 자동으로 만들어 넣음 -->
+    <div class="board" id="board"></div>
+
+    <!-- 게임 오버레이: 시작 전 / 게임 종료 시 화면 중앙에 표시 -->
+    <div class="overlay" id="overlay">
+      <!-- 게임 종료 후 최종 점수 표시 (평소에는 숨겨짐) -->
+      <div class="final-score" id="final-score"></div>
+      <!-- 시작 버튼 / 다시하기 버튼 (같은 버튼을 재활용) -->
+      <button class="start-btn" id="start-btn">게임 시작</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
