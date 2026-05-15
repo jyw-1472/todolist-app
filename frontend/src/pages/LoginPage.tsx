@@ -5,7 +5,7 @@ export function LoginPage() {
     <div className="auth-shell">
       <div className="auth-layout">
         <section className="auth-copy" aria-label="TodoList overview">
-          <span className="auth-kicker">TodoList Workspace</span>
+          <span className="auth-kicker">할일 목록 앱</span>
           <h1 className="auth-headline">일정과 오늘 할일을 한 화면에서 관리하세요.</h1>
           <p className="auth-description">
             캘린더, 빠른 추가, 진행률, 카테고리 통계를 연결해 매일의 업무 흐름을 더 명확하게 정리합니다.
