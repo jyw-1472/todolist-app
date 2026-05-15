@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
 import { ErrorMessage } from '../../../components/ErrorMessage'
@@ -17,7 +17,6 @@ export function LoginForm({ demoMode = false }: LoginFormProps) {
   const [password, setPassword] = useState('')
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({})
   const { mutate: loginMutate, isPending, errorMessage } = useLogin()
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (demoMode) {
@@ -30,7 +29,6 @@ export function LoginForm({ demoMode = false }: LoginFormProps) {
     setEmail(DEMO_EMAIL)
     setPassword(DEMO_PASSWORD)
     setFieldErrors({})
-    navigate('/login?demo=true', { replace: true })
   }
 
   function validate(): boolean {
