@@ -49,6 +49,10 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/demo',
+    element: <Navigate to="/login?demo=true" replace />,
+  },
+  {
     path: '*',
     element: <Navigate to="/" replace />,
   },

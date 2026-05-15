@@ -1,6 +1,10 @@
+import { useSearchParams } from 'react-router-dom'
 import { LoginForm } from '../features/auth/components/LoginForm'
 
 export function LoginPage() {
+  const [searchParams] = useSearchParams()
+  const demoMode = searchParams.get('demo') === 'true'
+
   return (
     <div className="auth-shell">
       <div className="auth-layout">
@@ -30,7 +34,7 @@ export function LoginPage() {
           <div className="auth-card-inner">
             <h2 className="auth-title">TodoList 로그인</h2>
             <p className="auth-subtitle">캘린더, 오늘 할일, 일정 관리를 한 화면에서 관리하세요.</p>
-            <LoginForm />
+            <LoginForm demoMode={demoMode} />
           </div>
         </section>
       </div>

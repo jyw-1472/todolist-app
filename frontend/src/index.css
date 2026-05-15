@@ -870,6 +870,16 @@ a:hover {
   font-weight: 780;
 }
 
+.demo-notice {
+  padding: 10px 13px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-accent);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .settings-stack {
   display: flex;
   flex-direction: column;
