@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
 import { Modal } from '../components/Modal'
 import { Input } from '../components/Input'
@@ -23,10 +23,14 @@ export function ProfilePage() {
   const { mutate: logout } = useLogout()
   const { setUser } = useAuthStore()
   const deleteAccount = useDeleteAccount()
+  const queryClient = useQueryClient()
 
   const nameUpdateMutation = useMutation({
     mutationFn: updateMe,
-    onSuccess: (user) => setUser(user),
+    onSuccess: (user) => {
+      setUser(user)
+      queryClient.invalidateQueries({ queryKey: ['me'] })
+    },
   })
 
   const passwordUpdateMutation = useMutation({
